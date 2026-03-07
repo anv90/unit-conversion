@@ -18,7 +18,9 @@ from flask import Flask, jsonify
 app = Flask(__name__)
 
 def calculate_conversion(num, unit):
-    case (unit)
+    match unit:
+        case "hr":
+            
     #fill out different cases
 
 @app.get('/unit_conversion')
