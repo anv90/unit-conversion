@@ -2,11 +2,13 @@
 app.get
     param:
         num to convert
-        units to convert to
+        units of num
     case (unit)
-    hrs -> divide by 60
-    days -> hrs, then divide by 24
-    returns the converted num
+        time (hrs, days, min) :
+            do conversions for all based on input unit
+        weight (lb, kgs, g):
+            do conversions for all based on input unit
+    returns the array of conversions
 
 
 
