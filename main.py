@@ -19,20 +19,29 @@ from flask import Flask, jsonify
 
 app = Flask(__name__)
 
+def calculate_time_conversion(num, unit):
+    return
+def calculate_weight_conversion(num, unit):
+    return
 def calculate_conversion(num, unit):
+    conversions = []
     match unit:
-        case "hr":
-            
-    #fill out different cases
+        case "hr" | "min" | "sec" | "day":
+            conversions = calculate_time_conversion(num, unit)
+        case "lb": #add more here depending on use case
+            conversions = calculate_weight_conversion(num, unit)
+    return conversions
 
 @app.get('/unit_conversion')
 def unit_conversion():
     num = request.args.get('num')
     unit = request.args.get('unit')
     if num and unit:
-        #check for valid unit??
-        result =  calculate_conversion(num, unit)
-        return jsonify(result), 200
+        conversions =  calculate_conversion(num, unit)
+        if conversions: #list is not empty
+            return jsonify(result), 200
+        else:
+            return jsonify({"error": "unsupported conversion"}, 400)
     else:
         return jsonify({"error": "Missing 'num' or 'unit' parameter"}), 400
 
