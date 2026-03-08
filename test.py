@@ -18,12 +18,22 @@ else:
 
 print("\nTest 2.0: Convert some weight units")
 #add params
-response = requests.get(f"http://localhost:6001/unit-conversion/")
+response = requests.get(f"http://localhost:6001/unit-conversion?num=7&unit=g")
 print(f"Status Code: {response.status_code}")
 
 if response.status_code == 200:
     result = response.json()
-    print(f"Expected ")
+
+    expected = {
+        "g": 7.0,
+        "kg": (7 * 0.001),
+        "lb": (7 / 453.592),
+        "mg": (7 * 1000),
+        "oz": (7 / 28.3495),
+        "tn_imperial": (7 * 1.1023E-6),
+        "tn_metric": (7 * 0.000001),
+        }
+    print(f"Expected: {expected}")
     print(f"Result: ${result}")
 else:
     print(response.text)

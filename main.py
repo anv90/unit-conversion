@@ -34,11 +34,11 @@ def gram_conversion(num, unit):
     match unit: 
         # Imperial
         case "oz": 
-            return (num * 28.3495)
+            return (num / 28.3495)
         case "lb":
-            return (num * 453.592)
+            return (num / 453.592)
         case "tn_imperial": 
-            return (num * 1016000)
+            return (num / 1016000)
         # Metric 
         case "mg":
             return (num * 0.001)
@@ -53,9 +53,9 @@ def gram_conversion(num, unit):
 def calculate_weight_conversion(num, unit):
     conversions = {}
     grams_unit = gram_conversion(num, unit) 
-    conversions['oz'] = (num * 0.035274)
-    conversions['lb'] = (num * 0.00220462)
-    conversions['tn_imperial'] = (num * 0.000000984207)
+    conversions['oz'] = (num / 28.3495)
+    conversions['lb'] = (num / 453.592)
+    conversions['tn_imperial'] = (num * 1.1023E-6)
     conversions['mg'] = (num * 1000)
     conversions['g'] = (num)
     conversions['kg'] = (num * 0.001)
@@ -68,7 +68,7 @@ def calculate_conversion(num, unit):
     match unit:
         case "hr" | "min" | "sec" | "day":
             conversions = calculate_time_conversion(num, unit)
-        case "lb": #add more here depending on use case
+        case "oz" | "lb" | "tn_imperial" | "mg" | "g" | "kg" | "tn_metric":
             conversions = calculate_weight_conversion(num, unit)
     return conversions
 
