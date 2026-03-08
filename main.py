@@ -21,8 +21,42 @@ app = Flask(__name__)
 
 def calculate_time_conversion(num, unit):
     return
+
+
+# Helper function to convert a given unit to grams
+def gram_conversion(num, unit): 
+    match unit: 
+        # Imperial
+        case "oz": 
+            return (num * 28.3495)
+        case "lb":
+            return (num * 453.592)
+        case "tn_imperial": 
+            return (num * 1016000)
+        # Metric 
+        case "mg":
+            return (num * 0.001)
+        case "g":
+            return (num)
+        case "kg":
+            return (num * 1000)
+        case "tn_metric":
+            return (num * 1000000)
+    return -1
+
 def calculate_weight_conversion(num, unit):
-    return
+    conversions = {}
+    grams_unit = gram_conversion(num, unit) 
+    conversions['oz'] = (num * 0.035274)
+    conversions['lb'] = (num * 0.00220462)
+    conversions['tn_imperial'] = (num * 0.000000984207)
+    conversions['mg'] = (num * 1000)
+    conversions['g'] = (num)
+    conversions['kg'] = (num * 0.001)
+    conversions['tn_metric'] = (num * 0.000001)
+    return conversions
+
+
 def calculate_conversion(num, unit):
     conversions = []
     match unit:
