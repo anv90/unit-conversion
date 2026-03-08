@@ -20,7 +20,13 @@ from flask import Flask, jsonify
 app = Flask(__name__)
 
 def calculate_time_conversion(num, unit):
-    return
+    factors = {"sec": 1, "min": 60, "hr": 3600, "day": 86400}
+    num_in_sec = num * factors[unit]
+    conversions = {"sec": num_in_sec, 
+                    "min": num_in_sec/factors["min"],  
+                    "hr": num_in_sec/factors["hr"], 
+                    "day": num_in_sec/factors["day"]}
+    return conversions
 
 
 # Helper function to convert a given unit to grams
@@ -58,7 +64,7 @@ def calculate_weight_conversion(num, unit):
 
 
 def calculate_conversion(num, unit):
-    conversions = []
+    conversions = {}
     match unit:
         case "hr" | "min" | "sec" | "day":
             conversions = calculate_time_conversion(num, unit)
