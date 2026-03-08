@@ -15,7 +15,7 @@ app.get
 
 """
 
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 
 app = Flask(__name__)
 
@@ -72,14 +72,14 @@ def calculate_conversion(num, unit):
             conversions = calculate_weight_conversion(num, unit)
     return conversions
 
-@app.get('/unit_conversion')
+@app.get('/unit-conversion')
 def unit_conversion():
-    num = request.args.get('num')
+    num = float(request.args.get('num'))
     unit = request.args.get('unit')
     if num and unit:
         conversions =  calculate_conversion(num, unit)
         if conversions: #list is not empty
-            return jsonify(result), 200
+            return jsonify(conversions), 200
         else:
             return jsonify({"error": "unsupported conversion"}, 400)
     else:
